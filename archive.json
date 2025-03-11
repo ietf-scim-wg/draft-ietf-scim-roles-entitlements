@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-03-09T00:54:09.087521+00:00",
+  "timestamp": "2025-03-11T01:02:33.561829+00:00",
   "repo": "ietf-scim-wg/draft-ietf-scim-roles-entitlements",
   "labels": [
     {
@@ -50,5 +50,32 @@
     }
   ],
   "issues": [],
-  "pulls": []
+  "pulls": [
+    {
+      "number": 1,
+      "id": "PR_kwDOIkiPTs6OCZ7m",
+      "title": "Proposed changes to SCIM roles entitlements draft",
+      "url": "https://github.com/ietf-scim-wg/draft-ietf-scim-roles-entitlements/pull/1",
+      "state": "OPEN",
+      "author": "uvartak-okta",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "- Added id attribute to role and entitlement schema to allow SP to define unique role and entitlement values.\r\n- Used schema extensions for sample role and entitlement schema examples.",
+      "createdAt": "2025-03-10T18:24:19Z",
+      "updatedAt": "2025-03-10T18:24:19Z",
+      "baseRepository": "ietf-scim-wg/draft-ietf-scim-roles-entitlements",
+      "baseRefName": "main",
+      "baseRefOid": "2047480a00e7ddd44dae80befe3e14bb815441f8",
+      "headRepository": "uvartak-okta/draft-ietf-scim-roles-entitlements",
+      "headRefName": "main",
+      "headRefOid": "5123282a4b7189a20c3a499ad9258ae059daab57",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    }
+  ]
 }
