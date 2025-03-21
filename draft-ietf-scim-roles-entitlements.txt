@@ -369,8 +369,9 @@ totalAssignmentsUsed
 
 3.4.2.  Schema samples
 
-3.4.2.1.  <base>/scim/v2/Schemas/
-          urn:ietf:params:scim:schemas:core:1.0:Role
+3.4.2.1.  Role
+
+   <base>/scim/v2/Schemas/urn:ietf:params:scim:schemas:core:1.0:Role
 
    Sample schema for a Role property
 
@@ -448,8 +449,10 @@ totalAssignmentsUsed
        ]
    }
 
-3.4.2.2.  <base>/scim/v2/Schemas/
-          urn:isvname:scim:schemas:extension:appname:1.0:RoleExample
+3.4.2.2.  Example Role
+
+   <base>/scim/v2/Schemas/
+   urn:isvname:scim:schemas:extension:appname:1.0:RoleExample
 
    Sample schema extension for a Role property
 
@@ -477,8 +480,9 @@ totalAssignmentsUsed
     }
 }
 
-3.4.2.3.  <base>/scim/v2/Schemas/
-          urn:ietf:scim:schemas:core:1.0:Entitlement
+3.4.2.3.  Entitlement
+
+   <base>/scim/v2/Schemas/urn:ietf:scim:schemas:core:1.0:Entitlement
 
    Sample schema for entitlement property
 
@@ -556,8 +560,10 @@ totalAssignmentsUsed
        ]
    }
 
-3.4.2.4.  <base>/scim/v2/Schemas/
-          urn:isvname:scim:schemas:extension:appname:1.0:License
+3.4.2.4.  License
+
+   <base>/scim/v2/Schemas/
+   urn:isvname:scim:schemas:extension:appname:1.0:License
 
    Sample schema extension for an Entitlement property
 
