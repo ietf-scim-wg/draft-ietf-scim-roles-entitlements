@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-03-20T01:02:11.361580+00:00",
+  "timestamp": "2025-03-23T01:07:36.840459+00:00",
   "repo": "ietf-scim-wg/draft-ietf-scim-roles-entitlements",
   "labels": [
     {
@@ -49,33 +49,97 @@
       "color": "ffffff"
     }
   ],
-  "issues": [],
+  "issues": [
+    {
+      "number": 2,
+      "id": "I_kwDOIkiPTs6vGiMR",
+      "title": "Fix header levels for examples",
+      "url": "https://github.com/ietf-scim-wg/draft-ietf-scim-roles-entitlements/issues/2",
+      "state": "OPEN",
+      "author": "aaronpk",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "The headings for the examples under Section 3.4 are a bit messy and should be reviewed.\n\nhttps://ietf-scim-wg.github.io/draft-ietf-scim-roles-entitlements/draft-ietf-scim-roles-entitlements.html#section-3.4\n\n@uvartak-okta can you please take a look and send a PR to fix? I updated them a bit already after your first PR that adds the headings.",
+      "createdAt": "2025-03-21T08:54:42Z",
+      "updatedAt": "2025-03-21T08:54:42Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 3,
+      "id": "I_kwDOIkiPTs6vGizs",
+      "title": "Publish version -01",
+      "url": "https://github.com/ietf-scim-wg/draft-ietf-scim-roles-entitlements/issues/3",
+      "state": "OPEN",
+      "author": "aaronpk",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "The PR with the changes discussed at IETF 122 has been merged. The next step is to publish version -01 of the draft, then send an email to the mailing list about the changes.\n\nCurrently waiting on #2 before publishing",
+      "createdAt": "2025-03-21T08:55:55Z",
+      "updatedAt": "2025-03-21T08:55:55Z",
+      "closedAt": null,
+      "comments": []
+    }
+  ],
   "pulls": [
     {
       "number": 1,
       "id": "PR_kwDOIkiPTs6OCZ7m",
       "title": "Proposed changes to SCIM roles entitlements draft",
       "url": "https://github.com/ietf-scim-wg/draft-ietf-scim-roles-entitlements/pull/1",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "uvartak-okta",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "- Added id attribute to role and entitlement schema to allow SP to define unique role and entitlement values.\r\n- Used schema extensions for sample role and entitlement schema examples.",
       "createdAt": "2025-03-10T18:24:19Z",
-      "updatedAt": "2025-03-10T18:24:19Z",
+      "updatedAt": "2025-03-21T08:10:16Z",
       "baseRepository": "ietf-scim-wg/draft-ietf-scim-roles-entitlements",
       "baseRefName": "main",
       "baseRefOid": "2047480a00e7ddd44dae80befe3e14bb815441f8",
       "headRepository": "uvartak-okta/draft-ietf-scim-roles-entitlements",
       "headRefName": "main",
-      "headRefOid": "5123282a4b7189a20c3a499ad9258ae059daab57",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
-      "comments": [],
-      "reviews": []
+      "headRefOid": "5f9929cef51e70fab3dab31178c31cd558ff36e5",
+      "closedAt": "2025-03-21T08:10:16Z",
+      "mergedAt": "2025-03-21T08:10:16Z",
+      "mergedBy": "aaronpk",
+      "mergeCommit": {
+        "oid": "4991771c89aac9920c208c1b5c8d8c807b39af45"
+      },
+      "comments": [
+        {
+          "author": "aaronpk",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "This was discussed at IETF 122 ([minutes](https://datatracker.ietf.org/meeting/122/session/scim)), and it was agreed to merge this and publish a new version.",
+          "createdAt": "2025-03-21T08:10:11Z",
+          "updatedAt": "2025-03-21T08:10:11Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIkiPTs6hPA5S",
+          "commit": {
+            "abbreviatedOid": "5123282"
+          },
+          "author": "aaronpk",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-03-21T08:08:40Z",
+          "updatedAt": "2025-03-21T08:08:40Z",
+          "comments": [
+            {
+              "originalPosition": 1031,
+              "body": "```suggestion\r\n```\r\n~~~\r\n--- back\r\n\r\n# IANA Considerations\r\n\r\n(To-Do)\r\n\r\n\r\n# Change Log\r\n\r\nv00 - December 2022 - Adopted by SCIM WG.\r\n\r\n\r\n# Acknowledgments\r\n{:numbered=\"false\"}\r\n\r\nTODO acknowledge.\r\n```",
+              "createdAt": "2025-03-21T08:08:40Z",
+              "updatedAt": "2025-03-21T08:08:40Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
