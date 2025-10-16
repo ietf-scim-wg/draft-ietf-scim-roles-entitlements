@@ -17,11 +17,11 @@ author:
  -
     name: Danny Zollner
     organization: Microsoft
-    email: zollnerd@microsoft.com
+    email: danny@zollnerd.com
  -
     name: Unmesh Vartak
     organization: Okta
-    email: unmesh.vartak@okta.com
+    email: uvartak@okta.com
 
 
 normative:
@@ -34,16 +34,26 @@ informative:
 
 --- abstract
 
-The System for Cross-domain Identity Management (SCIM) protocol's schema RFC {{RFC7643}} defines the complex core schema attributes "roles" and "entitlements". For both of these concepts, frequently only a predetermined set of values are accepted by a SCIM service provider. The values that are accepted may vary per customer or tenant based on customizable configuration in the service provider's application or based on other criteria such as what services have been purchased. This document defines an extension to the SCIM 2.0 standard to allow SCIM service providers to represent available data pertaining to roles and entitlements so that SCIM clients can consume this information and provide easier management of role and entitlement assignments.
+The System for Cross-domain Identity Management (SCIM) protocol schema, defined in RFC {{RFC7643}} defines the complex core schema attributes "roles" and "entitlements". For both of these concepts, frequently only a predetermined set of values are accepted by a SCIM service provider. The values that are accepted may vary per customer or tenant based on customizable configuration in the service provider's application or based on other criteria such as what services have been purchased or resources associated with entitlements. This document defines an extension to the SCIM 2.0 standard to allow SCIM service providers to represent available data pertaining to SCIM resources, roles and entitlements so that SCIM clients can consume this information and provide easier management of SCIM resources, role and entitlement assignments.
 
 
 --- middle
 
 # Introduction
 
-The System for Cross-domain Identity Management (SCIM) protocol's schema RFC {{RFC7643}} defines the complex core schema attributes "roles" and "entitlements". For both of these concepts, frequently only a predetermined set of values are accepted by a SCIM service provider. Available roles and entitlements may change based on a variety of factors, such as what features are enabled or what customizations have been made in a specific instance of a multi-tenant application. The core SCIM 2.0 RFC documents ({{RFC7642}}, {{RFC7643}} and {{RFC7644}}) do not provide a method for retrieving the available roles or entitlements as part of the SCIM 2.0 standard.
+The System for Cross-domain Identity Management (SCIM) protocol's schema RFC {{RFC7643}} defines the complex core schema attributes "roles" and "entitlements". For both of these concepts, frequently only a predetermined set of values are accepted by a SCIM service provider. Available roles and entitlements may change based on a variety of factors, such as what features are enabled or what customizations have been made in a specific instance of a multi-tenant application. Moreover roles and entitlements may be associated with specific SCIM resources within the SCIM server. The core SCIM 2.0 RFC documents ({{RFC7642}}, {{RFC7643}} and {{RFC7644}}) do not provide a method for retrieving the available roles or entitlements and the resources associated with roles or entitlements as part of the SCIM 2.0 standard.
 
-In order to allow for SCIM clients to avoid easily predictable errors when interacting with SCIM service providers, this document aims to provide a method for SCIM service providers to provide data on what roles and/or entitlements are available so that SCIM clients can consume this data to more efficiently manage resources between directories.
+In order to allow for SCIM clients to reduce predictable errors when interacting with SCIM service providers, this document aims to provide a method for SCIM service providers to provide data on what roles and/or entitlements are available, the association between roles and/or entitlements and specific resources so that SCIM clients can consume this data to more efficiently manage resources between directories.
+
+## Consuming Roles and Entitlements with SCIM Clients
+
+When a SCIM service provider publishes role and entitlement definitions, SCIM clients can consume them efficiently. The process generally follows these steps:
+
+1. Check Provider Support: Check the [ServiceProviderConfig Extension](#serviceproviderconfig-extension) for support for roles and entitlements and the resources associated with roles or entitlements.
+2. Discover ResourceTypes: Query the `/ResourceTypes` endpoint to discover which standard and custom role and entitlement [resource types](https://datatracker.ietf.org/doc/html/rfc7644#section-4) are supported.
+3. Discover schemas for ResourceTypes: Fetch the corresponding [schemas](#schema-samples) from the /Schemas endpoint, matching them with the ResourceType URNs.
+4. Consume [resource-specific endpoints](#sample-roles-and-entitlements-resource-endpoints) to retrieve the actual supported values for these defined resource types.
+
 
 # Conventions and Definitions
 
@@ -56,7 +66,7 @@ The Roles and Entitlements SCIM Extension consists of two new resource types, `/
 
 ## ServiceProviderConfig Extension
 
-SCIM endpoints that have implemented one or both of the endpoints from this extension MUST advertise which elements are implemented in the ServiceProviderConfig endpoint as defined:
+SCIM endpoints that have implemented one or both of the endpoints from this extension MUST advertise which elements are implemented in the [ServiceProviderConfig](https://datatracker.ietf.org/doc/html/rfc7643#section-5) endpoint as defined:
 
     RolesAndEntitlements
         A complex type that specifies Roles and Entitlements extension
@@ -85,6 +95,9 @@ SCIM endpoints that have implemented one or both of the endpoints from this exte
                 A boolean type that indicates if the SCIM service
                 provider supports the "type" sub-attribute for
                 the "roles" attribute on the User resource. OPTIONAL.
+            types
+                A multivalue attribute containing list of types supported for "roles"
+                attribute on the User resource. OPTIONAL.
 
         entitlements
             A complex type that specifies configuration options
@@ -113,11 +126,15 @@ SCIM endpoints that have implemented one or both of the endpoints from this exte
                 the "entitlements" attribute on the User resource.
                 OPTIONAL.
 
+            types
+                A multivalue attribute containing list of types supported for "entitlements"
+                attribute on the User resource. OPTIONAL.
 
 
-## Roles Resource Schema
 
-The `/Roles` resource type has a schema consisting of most of the attributes defined for the User resource's complex attribute "roles" in {{RFC7643}}, as well as an additional "supported" attribute so that SCIM service providers can indicate if the role is currently enabled and intended for use in their service. The following singular attributes are defined:
+## Role Resource Schema
+
+The `/Role` resource type has a schema consisting of most of the attributes defined for the User resource's complex attribute "roles" in {{RFC7643}}, as well as an additional "supported" attribute so that SCIM service providers can indicate if the role is currently enabled and intended for use in their service. The following singular attributes are defined:
 
     id
       A unique identifier for the role as defined by the service
@@ -137,7 +154,6 @@ The `/Roles` resource type has a schema consisting of most of the attributes def
 
     type
         A label indicating the role's function.  OPTIONAL
-
     supported
         A boolean type that indicates if the role is supported and usable
         in the SCIM service provider's system.  REQUIRED.
@@ -171,9 +187,9 @@ Additionally, the following multi-valued attributes are defined:
         A list of "child" roles that this role grants the rights of.
         OPTIONAL.
 
-## Entitlements Resource Schema
+## Entitlement Resource Schema
 
-The `/Entitlements` resource type has a schema consisting of most of the attributes defined for the User resource's complex attribute "entitlements" in {{RFC7643}}, as well as an additional "supported" attribute so that SCIM service providers can indicate if the entitlement is currently enabled and intended for use in their service.
+The `/Entitlement` resource type has a schema consisting of most of the attributes defined for the User resource's complex attribute "entitlements" in {{RFC7643}}, as well as an additional "supported" attribute so that SCIM service providers can indicate if the entitlement is currently enabled and intended for use in their service.
 
 The following singular attributes are defined:
 
@@ -198,7 +214,7 @@ The following singular attributes are defined:
 
     supported
         A boolean type that indicates if the entitlement is enabled
-        and usable in the SCIM service provider's system. REQUIRED.
+        and usable in the SCIM service provider's system. OPTIONAL.
 
     limitedAssignmentsPermitted
         A boolean type that indicates if a limited number of users may
@@ -228,69 +244,17 @@ Additionally, the following multi-valued attributes are defined:
         A list of "child" entitlements that this entitlement grants
         the rights of.  OPTIONAL.
 
-## Resource Type Representation
-
-### `<base>/scim/v2/ResourceTypes`
-
-Sample Role and entitlement resourceTypes with permission and license as custom schema extensions
-
-    [{
-        "schemas":["urn:ietf:params:scim:schemas:core:2.0:ResourceType"],
-        "id": "Role",
-        "name": "Role",
-        "endpoint": "/Roles",
-        "description": "Role",
-        "schema": "urn:ietf:params:scim:schemas:core:1.0:Role",
-        "schemaExtensions": [
-           {
-             "schema":
-               "urn:<isvname>:scim:schemas:extension:appname:1.0:RoleExample",
-             "required": true
-           }
-         ],
-         "meta": {
-           "location": "https://example.com/v2/ResourceTypes/Role",
-           "resourceType": "ResourceType"
-         }
-        },
-        {
-            "schemas":["urn:ietf:params:scim:schemas:core:2.0:ResourceType"],
-            "id": "License",
-            "name": "License",
-            "endpoint": "/Licenses",
-            "description": "License",
-            "schema": "urn:ietf:params:scim:schemas:core:1.0:Entitlement",
-            "schemaExtensions": [
-               {
-                 "schema":
-                   "urn:<isvname>:scim:schemas:extension:appname:1.0:License",
-                 "required": true
-               }
-             ],
-             "meta": {
-               "location": "https://example.com/v2/ResourceTypes/Entitlement",
-               "resourceType": "ResourceType"
-             }
-    }]
-
-Important:
-
-The root schema are `urn:ietf:params:scim:schemas:core:1.0:Role` and `urn:ietf:params:scim:schemas:core:1.0:Entitlement`.
-
-`schemaExtensions` denote the specific schema extensions for service provider with urns:
-
-`urn:<isvname>:scim:schemas:extension:<appname>:1.0:RoleExample`, `urn:isvname:scim:schemas:extension:appname:1.0:License`, etc.
 
 ### Schema samples
 
 #### Role
 
-`<base>/scim/v2/Schemas/urn:ietf:params:scim:schemas:core:1.0:Role`
+`<base>/scim/v2/Schemas/urn:ietf:params:scim:schemas:core:2.0:Role`
 
 Sample schema for a Role property
 
     {
-        "id":"urn:ietf:schemas:core:1.0:Role",
+        "id":"urn:ietf:params:scim:schemas:core:2.0:Role",
         "name":"Role",
         "description":"Role schema",
         "attributes":[
@@ -298,7 +262,7 @@ Sample schema for a Role property
                 "name" : "id",
                 "type" : "string",
                 "multiValued" : false,
-                "description" : "The unique id for role.",
+                "description" : "The unique identifier for the role.",
                 "required" : false,
                 "caseExact" : false,
                 "mutability" : "readOnly",
@@ -309,7 +273,7 @@ Sample schema for a Role property
                 "name" : "value",
                 "type" : "string",
                 "multiValued" : false,
-                "description" : "Role value.",
+                "description" : "The value of a role.",
                 "required" : true,
                 "caseExact" : false,
                 "mutability" : "readOnly",
@@ -317,10 +281,10 @@ Sample schema for a Role property
                 "uniqueness" : "none"
             },
             {
-                "name" : "displaye",
+                "name" : "display",
                 "type" : "string",
                 "multiValued" : false,
-                "description" : "display name for role.",
+                "description" : "A human-readable name, primarily used for display purposes.  READ-ONLY.",
                 "required" : false,
                 "caseExact" : false,
                 "mutability" : "readOnly",
@@ -331,7 +295,18 @@ Sample schema for a Role property
                 "name" : "type",
                 "type" : "string",
                 "multiValued" : false,
-                "description" : "Role type.",
+                "description" : "A label indicating the attribute's function.",
+                "required" : false,
+                "caseExact" : false,
+                "mutability" : "readOnly",
+                "returned" : "default",
+                "uniqueness" : "none"
+            },
+            {
+                "name" : "primary",
+                "type" : "boolean",
+                "multiValued" : false,
+                "description" : "A Boolean value indicating the 'primary' or preferred attribute value for this attribute.  The primary attribute value 'true' MUST appear no more than once.",
                 "required" : false,
                 "caseExact" : false,
                 "mutability" : "readOnly",
@@ -343,17 +318,61 @@ Sample schema for a Role property
                 "type" : "boolean",
                 "multiValued" : false,
                 "description" : "supported value for role",
-                "required" : true,
+                "required" : false,
                 "caseExact" : false,
                 "mutability" : "readOnly",
                 "returned" : "default",
                 "uniqueness" : "none"
             },
             {
-                "name" : "type",
-                "type" : "string",
+                "name" : "limitedAssignmentsPermitted",
+                "type" : "boolean",
                 "multiValued" : false,
-                "description" : "The unique id for role.",
+                "description" : "if a limited number of users may be assigned this role.",
+                "required" : false,
+                "caseExact" : false,
+                "mutability" : "readOnly",
+                "returned" : "default",
+                "uniqueness" : "none"
+            },
+            {
+                "name" : "totalAssignmentsPermitted",
+                "type" : "integer",
+                "multiValued" : false,
+                "description" : "number of users may be assigned this role, either directly or inherited.",
+                "required" : false,
+                "caseExact" : false,
+                "mutability" : "readOnly",
+                "returned" : "default",
+                "uniqueness" : "none"
+            },
+            {
+                "name" : "totalAssignmentsUsed",
+                "type" : "integer",
+                "multiValued" : false,
+                "description" : "how many users are currently assigned this role, either directly or inherited.",
+                "required" : false,
+                "caseExact" : false,
+                "mutability" : "readOnly",
+                "returned" : "default",
+                "uniqueness" : "none"
+            },
+            {
+                "name" : "containedBy",
+                "type" : "string",
+                "multiValued" : true,
+                "description" : "A list of "parent" roles that contain a superset of permissions including those granted by this role.",
+                "required" : false,
+                "caseExact" : false,
+                "mutability" : "readOnly",
+                "returned" : "default",
+                "uniqueness" : "none"
+            },
+            {
+                "name" : "contains",
+                "type" : "string",
+                "multiValued" : true,
+                "description" : "A list of "child" roles that this role grants the rights of.",
                 "required" : false,
                 "caseExact" : false,
                 "mutability" : "readOnly",
@@ -363,44 +382,15 @@ Sample schema for a Role property
         ]
     }
 
-#### Example Role
-
-`<base>/scim/v2/Schemas/urn:isvname:scim:schemas:extension:appname:1.0:RoleExample`
-
-Sample schema extension for a Role property
-
-    {
-        "id":"urn:isvname:scim:schemas:extension:appname:1.0:RoleExample",
-        "name":"P",
-        "description":"RoleExample schema extension",
-        "attributes":[
-            {
-                "name" : "permission",
-                "type" : "string",
-                "multiValued" : false,
-                "description" : "custom property in role",
-                "required" : false,
-                "caseExact" : false,
-                "mutability" : "readwrite",
-                "returned" : "default",
-                "uniqueness" : "none"
-            }
-            ]
-        },
-        "meta": {
-            "resourceType": "schema",
-            "location":"/v2/Schemas/urn:isvname:scim:schemas:extension:appname:1.0:RoleExample"
-        }
-    }
 
 #### Entitlement
 
-`<base>/scim/v2/Schemas/urn:ietf:scim:schemas:core:1.0:Entitlement`
+`<base>/scim/v2/Schemas/urn:ietf:params:scim:schemas:core:2.0:Entitlement`
 
 Sample schema for entitlement property
 
     {
-        "id":"urn:ietf:schemas:core:1.0:Entitlement",
+        "id":"urn:ietf:params:scim:schemas:core:2.0:Entitlement",
         "name":"Entitlement",
         "description":"Entitlement schema",
         "attributes":[
@@ -408,8 +398,8 @@ Sample schema for entitlement property
                 "name" : "id",
                 "type" : "string",
                 "multiValued" : false,
-                "description" : "The unique id for Entitlement.",
-                "required" : false,
+                "description" : "The unique identifier for the Entitlement.",
+                "required" : true,
                 "caseExact" : false,
                 "mutability" : "readOnly",
                 "returned" : "default",
@@ -419,18 +409,18 @@ Sample schema for entitlement property
                 "name" : "value",
                 "type" : "string",
                 "multiValued" : false,
-                "description" : "Role value.",
-                "required" : true,
+                "description" : "The value of an entitlement.",
+                "required" : false,
                 "caseExact" : false,
                 "mutability" : "readOnly",
                 "returned" : "default",
                 "uniqueness" : "none"
             },
             {
-                "name" : "displaye",
+                "name" : "display",
                 "type" : "string",
                 "multiValued" : false,
-                "description" : "display name for role.",
+                "description" : "A human-readable name, primarily used for display purposes.  READ-ONLY.",
                 "required" : false,
                 "caseExact" : false,
                 "mutability" : "readOnly",
@@ -441,7 +431,18 @@ Sample schema for entitlement property
                 "name" : "type",
                 "type" : "string",
                 "multiValued" : false,
-                "description" : "Role type.",
+                "description" : "A label indicating the attribute's function.",
+                "required" : false,
+                "caseExact" : false,
+                "mutability" : "readOnly",
+                "returned" : "default",
+                "uniqueness" : "none"
+            },
+            {
+                "name" : "primary",
+                "type" : "boolean",
+                "multiValued" : false,
+                "description" : "A Boolean value indicating the 'primary' or preferred attribute value for this attribute.  The primary attribute value 'true' MUST appear no more than once.",
                 "required" : false,
                 "caseExact" : false,
                 "mutability" : "readOnly",
@@ -452,18 +453,62 @@ Sample schema for entitlement property
                 "name" : "supported",
                 "type" : "boolean",
                 "multiValued" : false,
-                "description" : "supported value for role",
-                "required" : true,
+                "description" : "supported value for entitlement",
+                "required" : false,
                 "caseExact" : false,
                 "mutability" : "readOnly",
                 "returned" : "default",
                 "uniqueness" : "none"
             },
             {
-                "name" : "type",
-                "type" : "string",
+                "name" : "limitedAssignmentsPermitted",
+                "type" : "boolean",
                 "multiValued" : false,
-                "description" : "The unique id for role.",
+                "description" : "if a limited number of users may be assigned this entitlement.",
+                "required" : false,
+                "caseExact" : false,
+                "mutability" : "readOnly",
+                "returned" : "default",
+                "uniqueness" : "none"
+            },
+            {
+                "name" : "totalAssignmentsPermitted",
+                "type" : "integer",
+                "multiValued" : false,
+                "description" : "number of users may be assigned this entitlement, either directly or inherited.",
+                "required" : false,
+                "caseExact" : false,
+                "mutability" : "readOnly",
+                "returned" : "default",
+                "uniqueness" : "none"
+            },
+            {
+                "name" : "totalAssignmentsUsed",
+                "type" : "integer",
+                "multiValued" : false,
+                "description" : "how many users are currently assigned this entitlement, either directly or inherited.",
+                "required" : false,
+                "caseExact" : false,
+                "mutability" : "readOnly",
+                "returned" : "default",
+                "uniqueness" : "none"
+            },
+            {
+                "name" : "containedBy",
+                "type" : "string",
+                "multiValued" : true,
+                "description" : "A list of "parent" entitlement that contain a superset of permissions including those granted by this entitlement.",
+                "required" : false,
+                "caseExact" : false,
+                "mutability" : "readOnly",
+                "returned" : "default",
+                "uniqueness" : "none"
+            },
+            {
+                "name" : "contains",
+                "type" : "string",
+                "multiValued" : true,
+                "description" : "A list of "child" roles that this entitlement grants the rights of.",
                 "required" : false,
                 "caseExact" : false,
                 "mutability" : "readOnly",
@@ -473,41 +518,10 @@ Sample schema for entitlement property
         ]
     }
 
-#### License
 
-`<base>/scim/v2/Schemas/urn:isvname:scim:schemas:extension:appname:1.0:License`
+### Sample Roles and Entitlements resource endpoints
 
-Sample schema extension for an Entitlement property
-
-    {
-        "id":"urn:isvname:scim:schemas:extension:appname:1.0:License",
-        "name":"License",
-        "description":"License entitlement schema extension",
-        "attributes":[
-            {
-                "name" : "licensecount",
-                "type" : "string",
-                "multiValued" : false,
-                "description" : "custom property in license entitlement",
-                "required" : false,
-                "caseExact" : false,
-                "mutability" : "readwrite",
-                "returned" : "default",
-                "uniqueness" : "none"
-            }
-            ]
-        },
-        "meta": {
-            "resourceType": "schema",
-            "location":"/v2/Schemas/urn:isvname:scim:schemas:extension:appname:1.0:License"
-        }
-    }
-
-
-
-### Sample schema response
-
-#### Retrieving all roles
+#### Retrieving all Roles
 
 `GET /Roles`
 
@@ -518,44 +532,23 @@ Sample schema extension for an Entitlement property
         "startIndex":1,
         "Resources":[
             {
-                "schemas": [
-                    "urn:ietf:params:scim:schemas:core:1.0:Role",
-                    "urn:<isvname>:scim:schemas:extension:<appname>:1.0:RoleExample"
-                ],
                 "id":"rl3456",
                 "value":"global_lead",
                 "display":"Global Team Lead",
-                "urn:<isvname>:scim:schemas:extension:<appname>:1.0:RoleExample":{
-                    "permission":"1"
-                },
-                "contains":["teamlead"],
+                "contains":["us_team_lead"],
                 "containedBy":[]
             },
             {
-                "schemas": [
-                    "urn:ietf:params:scim:schemas:core:1.0:Role",
-                    "urn:<isvname>:scim:schemas:extension:<appname>:1.0:RoleExample"
-                ],
                 "id":"rl5873",
                 "value":"us_team_lead",
                 "display":"U.S. Team Lead",
-                "urn:<isvname>:scim:schemas:extension:<appname>:1.0:RoleExample":{
-                    "permission":"2"
-                },
                 "contains":["regional_lead"],
                 "containedBy":["global_lead"]
             },
             {
-                "schemas": [
-                    "urn:ietf:params:scim:schemas:core:1.0:Role",
-                    "urn:<isvname>:scim:schemas:extension:<appname>:1.0:RoleExample"
-                ],
                 "id":"rl9057",
                 "value":"nw_regional_lead",
                 "display":"Northwest Regional Lead",
-                "urn:<isvname>:scim:schemas:extension:<appname>:1.0:RoleExample":{
-                    "permission":"1"
-                },
                 "contains":[],
                 "containedBy":["us_team_lead"]
             }
@@ -574,75 +567,28 @@ Sample schema extension for an Entitlement property
         "startIndex":1,
         "Resources":[
             {
-                "schemas": [
-                    "urn:ietf:params:scim:schemas:core:1.0:Entitlement",
-                    "urn:<isvname>:scim:schemas:extension:<appname>:1.0:License"
-                ],
-                "id":"en9057",
-                "value":"1",
-                "display":"Printing",
-                "urn:<isvname>:scim:schemas:extension:<appname>:1.0:License":{
-                    "licensecount":"10"
-                },
-                "enabled":true,
+                "id": "e-10045",  // Internal ID for the Full Access License object
+                "value": "license.full_access_seat",
+                "type": "License",
+                "display": "DevTrack Full Feature License"
                 "contains":[],
-                "containedBy":["5"]
-            },
-            {
-                "schemas": [
-                    "urn:ietf:params:scim:schemas:core:1.0:Entitlement",
-                    "urn:<isvname>:scim:schemas:extension:<appname>:1.0:License"
-                ],
-                "id":"en9907",
-                "value":"2",
-                "display":"Scanning",
-                "urn:<isvname>:scim:schemas:extension:<appname>:1.0:License":{
-                    "licensecount":"100"
-                },
-                "contains":[],
-                "containedBy":["5"]
-            },
-            {
-                "schemas": [
-                    "urn:ietf:params:scim:schemas:core:1.0:Entitlement",
-                    "urn:<isvname>:scim:schemas:extension:<appname>:1.0:License"
-                ],
-                "id":"en38476",
-                "value":"3",
-                "display":"Copying",
-                "urn:<isvname>:scim:schemas:extension:<appname>:1.0:License":{
-                    "licensecount":"1000"
-                },
-                "contains":[],
-                "containedBy":["5"]
-            },
-            {
-                "schemas": [
-                    "urn:ietf:params:scim:schemas:core:1.0:Entitlement",
-                    "urn:<isvname>:scim:schemas:extension:<appname>:1.0:License"
-                ],
-                "id":"en2257",
-                "value":"4",
-                "display":"Collating",
-                "urn:<isvname>:scim:schemas:extension:<appname>:1.0:License":{
-                    "licensecount":"10"
-                },
-                "contains":[],
-                "containedBy":["5"]
-            },
-            {
-                "schemas": [
-                    "urn:ietf:params:scim:schemas:core:1.0:Entitlement",
-                    "urn:<isvname>:scim:schemas:extension:<appname>:1.0:License"
-                ],
-                "id":"en33097",
-                "value":"5",
-                "display":"All Printer Permissions",
-                "urn:<isvname>:scim:schemas:extension:<appname>:1.0:License":{
-                    "licensecount":"10"
-                },
-                "contains":["1","2","3","4"],
                 "containedBy":[]
+            },
+            {
+                "id": "e-20993",  // Internal ID for the Code Review Bypass permission object
+                "value": "feature.code_review_bypass",
+                "type": "Permission",
+                "display": "Bypass Mandatory Code Review (Elevated Privilege)"
+                "contains":[],
+                "containedBy":[]
+            },
+            {
+                "id": "e-31578",  // Internal ID for the Storage Limit object
+                "value": "storage.limit_100gb",
+                "type": "ResourceLimit",
+                "display": "100 GB Repository Storage Limit"
+                "contains":[],
+                "containedBy":["e-10045"]
             }
         ]
     }
@@ -653,7 +599,9 @@ Sample schema extension for an Entitlement property
     {
         "schemas":
           ["urn:ietf:params:scim:schemas:core:2.0:User",
-            "urn:ietf:params:scim:schemas:extension:enterprise:2.0:User"],
+            "urn:ietf:params:scim:schemas:extension:enterprise:2.0:User",
+            "urn:ietf:params:scim:schemas:core:2.0:Role",
+            "urn:ietf:params:scim:schemas:core:2.0:Entitlement"],
         "id": "2819c223-7f76-453a-919d-413861904646",
         "externalId": "701984",
         "userName": "bjensen@example.com",
@@ -776,14 +724,20 @@ Sample schema extension for an Entitlement property
               +GFiBZ+GNF/cAYKcMtGcrs2i97ZkJMo="
           }
         ],
-        "entitlements":{
-            "value":"ent1234",
-            "display":"entitlement 1"
-        },
-        "roles":{
-            "value":"rl4567",
-            "display":"role 1"
-        },
+        "entitlements":[
+            {
+                "id": "e-31578",
+                "value": "storage.limit_100gb",
+                "type": "ResourceLimit",
+                "display": "100 GB Repository Storage Limit",
+          }
+        ],
+        "roles":[
+          {
+            "value":"global_lead",
+            "display":"global lead"
+          }
+        ],
 
         "urn:ietf:params:scim:schemas:extension:enterprise:2.0:User": {
           "employeeNumber": "701984",
@@ -804,7 +758,6 @@ Sample schema extension for an Entitlement property
           "version": "W\/\"3694e05e9dff591\"",
           "location": "https://example.com/v2/Users/2819c223-7f76-453a-919d-413861904646"
         }
-      }
     }
 
 ~~~
@@ -824,6 +777,7 @@ Sample schema extension for an Entitlement property
 * Defines custom namespace for SPs to define their own schema extensions
 * Added examples of requests and responses
 * Added Unmesh Vartak as co-author
+* Using schema version 2.0 for roles and entitlements schemas: urn:ietf:params:scim:schemas:core:2.0:Role and urn:ietf:params:scim:schemas:core:2.0:Entitlement
 
 -00
 
