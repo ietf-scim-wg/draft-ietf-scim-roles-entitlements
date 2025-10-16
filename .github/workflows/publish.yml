@@ -1,5 +1,8 @@
 name: "Publish New Draft Version"
 
+env:
+  UPLOAD_EMAIL: danny@zollnerd.com
+
 on:
   push:
     tags:
