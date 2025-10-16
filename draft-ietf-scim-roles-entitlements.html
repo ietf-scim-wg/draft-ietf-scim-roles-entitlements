@@ -8,26 +8,26 @@
 <meta content="Danny Zollner" name="author">
 <meta content="Unmesh Vartak" name="author">
 <meta content="
-       The System for Cross-domain Identity Management (SCIM) protocol's schema RFC   defines the complex core schema attributes &quot;roles&quot; and &quot;entitlements&quot;. For both of these concepts, frequently only a predetermined set of values are accepted by a SCIM service provider. The values that are accepted may vary per customer or tenant based on customizable configuration in the service provider's application or based on other criteria such as what services have been purchased. This document defines an extension to the SCIM 2.0 standard to allow SCIM service providers to represent available data pertaining to roles and entitlements so that SCIM clients can consume this information and provide easier management of role and entitlement assignments. 
+       The System for Cross-domain Identity Management (SCIM) protocol schema, defined in RFC   defines the complex core schema attributes &quot;roles&quot; and &quot;entitlements&quot;. For both of these concepts, frequently only a predetermined set of values are accepted by a SCIM service provider. The values that are accepted may vary per customer or tenant based on customizable configuration in the service provider's application or based on other criteria such as what services have been purchased or resources associated with entitlements. This document defines an extension to the SCIM 2.0 standard to allow SCIM service providers to represent available data pertaining to SCIM resources, roles and entitlements so that SCIM clients can consume this information and provide easier management of SCIM resources, role and entitlement assignments. 
     " name="description">
-<meta content="xml2rfc 3.28.0" name="generator">
+<meta content="xml2rfc 3.30.2" name="generator">
 <meta content="Internet-Draft" name="keyword">
 <meta content="SCIM" name="keyword">
 <meta content="draft-ietf-scim-roles-entitlements-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.28.0
-    Python 3.12.9
+  xml2rfc 3.30.2
+    Python 3.12.11
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
     intervaltree 3.1.0
     Jinja2 3.1.6
-    lxml 5.3.0
-    platformdirs 4.3.6
+    lxml 5.3.1
+    platformdirs 4.4.0
     pycountry 24.6.1
     PyYAML 6.0.2
-    requests 2.32.3
-    setuptools 70.3.0
-    wcwidth 0.2.13
+    requests 2.32.5
+    setuptools 80.9.0
+    wcwidth 0.2.14
 -->
 <link href="draft-ietf-scim-roles-entitlements.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -1046,11 +1046,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">SCIM Roles and Entitlements Extension</td>
-<td class="right">March 2025</td>
+<td class="right">October 2025</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Zollner &amp; Vartak</td>
-<td class="center">Expires 22 September 2025</td>
+<td class="center">Expires 19 April 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1063,12 +1063,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-scim-roles-entitlements-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-03-21" class="published">21 March 2025</time>
+<time datetime="2025-10-16" class="published">16 October 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-09-22">22 September 2025</time></dd>
+<dd class="expires"><time datetime="2026-04-19">19 April 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1085,7 +1085,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <h1 id="title">SCIM Roles and Entitlements Extension</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">The System for Cross-domain Identity Management (SCIM) protocol's schema RFC <span>[<a href="#RFC7643" class="cite xref">RFC7643</a>]</span> defines the complex core schema attributes "roles" and "entitlements". For both of these concepts, frequently only a predetermined set of values are accepted by a SCIM service provider. The values that are accepted may vary per customer or tenant based on customizable configuration in the service provider's application or based on other criteria such as what services have been purchased. This document defines an extension to the SCIM 2.0 standard to allow SCIM service providers to represent available data pertaining to roles and entitlements so that SCIM clients can consume this information and provide easier management of role and entitlement assignments.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-1">The System for Cross-domain Identity Management (SCIM) protocol schema, defined in RFC <span>[<a href="#RFC7643" class="cite xref">RFC7643</a>]</span> defines the complex core schema attributes "roles" and "entitlements". For both of these concepts, frequently only a predetermined set of values are accepted by a SCIM service provider. The values that are accepted may vary per customer or tenant based on customizable configuration in the service provider's application or based on other criteria such as what services have been purchased or resources associated with entitlements. This document defines an extension to the SCIM 2.0 standard to allow SCIM service providers to represent available data pertaining to SCIM resources, roles and entitlements so that SCIM clients can consume this information and provide easier management of SCIM resources, role and entitlement assignments.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-discussion-venues">
@@ -1117,7 +1117,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 22 September 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 19 April 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1148,6 +1148,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <nav class="toc"><ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1">
             <p id="section-toc.1-1.1.1" class="keepWithNext"><a href="#section-1" class="auto internal xref">1</a>.  <a href="#name-introduction" class="internal xref">Introduction</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.1">
+                <p id="section-toc.1-1.1.2.1.1" class="keepWithNext"><a href="#section-1.1" class="auto internal xref">1.1</a>.  <a href="#name-consuming-roles-and-entitle" class="internal xref">Consuming Roles and Entitlements with SCIM Clients</a></p>
+</li>
+            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2">
             <p id="section-toc.1-1.2.1" class="keepWithNext"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-conventions-and-definitions" class="internal xref">Conventions and Definitions</a></p>
@@ -1156,25 +1161,19 @@ svg :is([fill="white"], [fill^="#fff"]) {
             <p id="section-toc.1-1.3.1"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-roles-and-entitlements" class="internal xref">Roles and Entitlements</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.1">
-                <p id="section-toc.1-1.3.2.1.1" class="keepWithNext"><a href="#section-3.1" class="auto internal xref">3.1</a>.  <a href="#name-serviceproviderconfig-exten" class="internal xref">ServiceProviderConfig Extension</a></p>
+                <p id="section-toc.1-1.3.2.1.1"><a href="#section-3.1" class="auto internal xref">3.1</a>.  <a href="#name-serviceproviderconfig-exten" class="internal xref">ServiceProviderConfig Extension</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.2">
-                <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="auto internal xref">3.2</a>.  <a href="#name-roles-resource-schema" class="internal xref">Roles Resource Schema</a></p>
+                <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="auto internal xref">3.2</a>.  <a href="#name-role-resource-schema" class="internal xref">Role Resource Schema</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3">
-                <p id="section-toc.1-1.3.2.3.1"><a href="#section-3.3" class="auto internal xref">3.3</a>.  <a href="#name-entitlements-resource-schem" class="internal xref">Entitlements Resource Schema</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4">
-                <p id="section-toc.1-1.3.2.4.1"><a href="#section-3.4" class="auto internal xref">3.4</a>.  <a href="#name-resource-type-representatio" class="internal xref">Resource Type Representation</a></p>
+                <p id="section-toc.1-1.3.2.3.1"><a href="#section-3.3" class="auto internal xref">3.3</a>.  <a href="#name-entitlement-resource-schema" class="internal xref">Entitlement Resource Schema</a></p>
 <ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4.2.1">
-                    <p id="section-toc.1-1.3.2.4.2.1.1"><a href="#section-3.4.1" class="auto internal xref">3.4.1</a>.  <a href="#name-base-scim-v2-resourcetypes" class="internal xref"><code>&lt;base&gt;/scim/v2/ResourceTypes</code></a></p>
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3.2.1">
+                    <p id="section-toc.1-1.3.2.3.2.1.1"><a href="#section-3.3.1" class="auto internal xref">3.3.1</a>.  <a href="#name-schema-samples" class="internal xref">Schema samples</a></p>
 </li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4.2.2">
-                    <p id="section-toc.1-1.3.2.4.2.2.1"><a href="#section-3.4.2" class="auto internal xref">3.4.2</a>.  <a href="#name-schema-samples" class="internal xref">Schema samples</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4.2.3">
-                    <p id="section-toc.1-1.3.2.4.2.3.1"><a href="#section-3.4.3" class="auto internal xref">3.4.3</a>.  <a href="#name-sample-schema-response" class="internal xref">Sample schema response</a></p>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3.2.2">
+                    <p id="section-toc.1-1.3.2.3.2.2.1"><a href="#section-3.3.2" class="auto internal xref">3.3.2</a>.  <a href="#name-sample-roles-and-entitlemen" class="internal xref">Sample Roles and Entitlements resource endpoints</a></p>
 </li>
                 </ul>
 </li>
@@ -1212,8 +1211,30 @@ svg :is([fill="white"], [fill^="#fff"]) {
       <h2 id="name-introduction">
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
-<p id="section-1-1">The System for Cross-domain Identity Management (SCIM) protocol's schema RFC <span>[<a href="#RFC7643" class="cite xref">RFC7643</a>]</span> defines the complex core schema attributes "roles" and "entitlements". For both of these concepts, frequently only a predetermined set of values are accepted by a SCIM service provider. Available roles and entitlements may change based on a variety of factors, such as what features are enabled or what customizations have been made in a specific instance of a multi-tenant application. The core SCIM 2.0 RFC documents (<span>[<a href="#RFC7642" class="cite xref">RFC7642</a>]</span>, <span>[<a href="#RFC7643" class="cite xref">RFC7643</a>]</span> and <span>[<a href="#RFC7644" class="cite xref">RFC7644</a>]</span>) do not provide a method for retrieving the available roles or entitlements as part of the SCIM 2.0 standard.<a href="#section-1-1" class="pilcrow">¶</a></p>
-<p id="section-1-2">In order to allow for SCIM clients to avoid easily predictable errors when interacting with SCIM service providers, this document aims to provide a method for SCIM service providers to provide data on what roles and/or entitlements are available so that SCIM clients can consume this data to more efficiently manage resources between directories.<a href="#section-1-2" class="pilcrow">¶</a></p>
+<p id="section-1-1">The System for Cross-domain Identity Management (SCIM) protocol's schema RFC <span>[<a href="#RFC7643" class="cite xref">RFC7643</a>]</span> defines the complex core schema attributes "roles" and "entitlements". For both of these concepts, frequently only a predetermined set of values are accepted by a SCIM service provider. Available roles and entitlements may change based on a variety of factors, such as what features are enabled or what customizations have been made in a specific instance of a multi-tenant application. Moreover roles and entitlements may be associated with specific SCIM resources within the SCIM server. The core SCIM 2.0 RFC documents (<span>[<a href="#RFC7642" class="cite xref">RFC7642</a>]</span>, <span>[<a href="#RFC7643" class="cite xref">RFC7643</a>]</span> and <span>[<a href="#RFC7644" class="cite xref">RFC7644</a>]</span>) do not provide a method for retrieving the available roles or entitlements and the resources associated with roles or entitlements as part of the SCIM 2.0 standard.<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-2">In order to allow for SCIM clients to reduce predictable errors when interacting with SCIM service providers, this document aims to provide a method for SCIM service providers to provide data on what roles and/or entitlements are available, the association between roles and/or entitlements and specific resources so that SCIM clients can consume this data to more efficiently manage resources between directories.<a href="#section-1-2" class="pilcrow">¶</a></p>
+<div id="consuming-roles-and-entitlements-with-scim-clients">
+<section id="section-1.1">
+        <h3 id="name-consuming-roles-and-entitle">
+<a href="#section-1.1" class="section-number selfRef">1.1. </a><a href="#name-consuming-roles-and-entitle" class="section-name selfRef">Consuming Roles and Entitlements with SCIM Clients</a>
+        </h3>
+<p id="section-1.1-1">When a SCIM service provider publishes role and entitlement definitions, SCIM clients can consume them efficiently. The process generally follows these steps:<a href="#section-1.1-1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-1.1-2">
+<li id="section-1.1-2.1">
+            <p id="section-1.1-2.1.1">Check Provider Support: Check the <span><a href="#serviceproviderconfig-extension" class="internal xref">ServiceProviderConfig Extension</a> (<a href="#serviceproviderconfig-extension" class="auto internal xref">Section 3.1</a>)</span> for support for roles and entitlements and the resources associated with roles or entitlements.<a href="#section-1.1-2.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li id="section-1.1-2.2">
+            <p id="section-1.1-2.2.1">Discover ResourceTypes: Query the <code>/ResourceTypes</code> endpoint to discover which standard and custom role and entitlement <a href="https://datatracker.ietf.org/doc/html/rfc7644#section-4">resource types</a> are supported.<a href="#section-1.1-2.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li id="section-1.1-2.3">
+            <p id="section-1.1-2.3.1">Discover schemas for ResourceTypes: Fetch the corresponding <span><a href="#schema-samples" class="internal xref">schemas</a> (<a href="#schema-samples" class="auto internal xref">Section 3.3.1</a>)</span> from the /Schemas endpoint, matching them with the ResourceType URNs.<a href="#section-1.1-2.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li id="section-1.1-2.4">
+            <p id="section-1.1-2.4.1">Consume <span><a href="#sample-roles-and-entitlements-resource-endpoints" class="internal xref">resource-specific endpoints</a> (<a href="#sample-roles-and-entitlements-resource-endpoints" class="auto internal xref">Section 3.3.2</a>)</span> to retrieve the actual supported values for these defined resource types.<a href="#section-1.1-2.4.1" class="pilcrow">¶</a></p>
+</li>
+        </ol>
+</section>
+</div>
 </section>
 </div>
 <div id="conventions-and-definitions">
@@ -1238,7 +1259,7 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
         <h3 id="name-serviceproviderconfig-exten">
 <a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-serviceproviderconfig-exten" class="section-name selfRef">ServiceProviderConfig Extension</a>
         </h3>
-<p id="section-3.1-1">SCIM endpoints that have implemented one or both of the endpoints from this extension <span class="bcp14">MUST</span> advertise which elements are implemented in the ServiceProviderConfig endpoint as defined:<a href="#section-3.1-1" class="pilcrow">¶</a></p>
+<p id="section-3.1-1">SCIM endpoints that have implemented one or both of the endpoints from this extension <span class="bcp14">MUST</span> advertise which elements are implemented in the <a href="https://datatracker.ietf.org/doc/html/rfc7643#section-5">ServiceProviderConfig</a> endpoint as defined:<a href="#section-3.1-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-3.1-2">
 <pre>
 RolesAndEntitlements
@@ -1268,6 +1289,9 @@ RolesAndEntitlements
             A boolean type that indicates if the SCIM service
             provider supports the "type" sub-attribute for
             the "roles" attribute on the User resource. OPTIONAL.
+        types
+            A multivalue attribute containing list of types supported for "roles"
+            attribute on the User resource. OPTIONAL.
 
     entitlements
         A complex type that specifies configuration options
@@ -1295,16 +1319,20 @@ RolesAndEntitlements
             provider supports the "type" sub-attribute for
             the "entitlements" attribute on the User resource.
             OPTIONAL.
+
+        types
+            A multivalue attribute containing list of types supported for "entitlements"
+            attribute on the User resource. OPTIONAL.
 </pre><a href="#section-3.1-2" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
-<div id="roles-resource-schema">
+<div id="role-resource-schema">
 <section id="section-3.2">
-        <h3 id="name-roles-resource-schema">
-<a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-roles-resource-schema" class="section-name selfRef">Roles Resource Schema</a>
+        <h3 id="name-role-resource-schema">
+<a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-role-resource-schema" class="section-name selfRef">Role Resource Schema</a>
         </h3>
-<p id="section-3.2-1">The <code>/Roles</code> resource type has a schema consisting of most of the attributes defined for the User resource's complex attribute "roles" in <span>[<a href="#RFC7643" class="cite xref">RFC7643</a>]</span>, as well as an additional "supported" attribute so that SCIM service providers can indicate if the role is currently enabled and intended for use in their service. The following singular attributes are defined:<a href="#section-3.2-1" class="pilcrow">¶</a></p>
+<p id="section-3.2-1">The <code>/Role</code> resource type has a schema consisting of most of the attributes defined for the User resource's complex attribute "roles" in <span>[<a href="#RFC7643" class="cite xref">RFC7643</a>]</span>, as well as an additional "supported" attribute so that SCIM service providers can indicate if the role is currently enabled and intended for use in their service. The following singular attributes are defined:<a href="#section-3.2-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-3.2-2">
 <pre>
 id
@@ -1325,7 +1353,6 @@ display
 
 type
     A label indicating the role's function.  OPTIONAL
-
 supported
     A boolean type that indicates if the role is supported and usable
     in the SCIM service provider's system.  REQUIRED.
@@ -1364,12 +1391,12 @@ contains
 </div>
 </section>
 </div>
-<div id="entitlements-resource-schema">
+<div id="entitlement-resource-schema">
 <section id="section-3.3">
-        <h3 id="name-entitlements-resource-schem">
-<a href="#section-3.3" class="section-number selfRef">3.3. </a><a href="#name-entitlements-resource-schem" class="section-name selfRef">Entitlements Resource Schema</a>
+        <h3 id="name-entitlement-resource-schema">
+<a href="#section-3.3" class="section-number selfRef">3.3. </a><a href="#name-entitlement-resource-schema" class="section-name selfRef">Entitlement Resource Schema</a>
         </h3>
-<p id="section-3.3-1">The <code>/Entitlements</code> resource type has a schema consisting of most of the attributes defined for the User resource's complex attribute "entitlements" in <span>[<a href="#RFC7643" class="cite xref">RFC7643</a>]</span>, as well as an additional "supported" attribute so that SCIM service providers can indicate if the entitlement is currently enabled and intended for use in their service.<a href="#section-3.3-1" class="pilcrow">¶</a></p>
+<p id="section-3.3-1">The <code>/Entitlement</code> resource type has a schema consisting of most of the attributes defined for the User resource's complex attribute "entitlements" in <span>[<a href="#RFC7643" class="cite xref">RFC7643</a>]</span>, as well as an additional "supported" attribute so that SCIM service providers can indicate if the entitlement is currently enabled and intended for use in their service.<a href="#section-3.3-1" class="pilcrow">¶</a></p>
 <p id="section-3.3-2">The following singular attributes are defined:<a href="#section-3.3-2" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-3.3-3">
 <pre>
@@ -1394,7 +1421,7 @@ type
 
 supported
     A boolean type that indicates if the entitlement is enabled
-    and usable in the SCIM service provider's system. REQUIRED.
+    and usable in the SCIM service provider's system. OPTIONAL.
 
 limitedAssignmentsPermitted
     A boolean type that indicates if a limited number of users may
@@ -1427,83 +1454,22 @@ contains
     the rights of.  OPTIONAL.
 </pre><a href="#section-3.3-5" class="pilcrow">¶</a>
 </div>
-</section>
-</div>
-<div id="resource-type-representation">
-<section id="section-3.4">
-        <h3 id="name-resource-type-representatio">
-<a href="#section-3.4" class="section-number selfRef">3.4. </a><a href="#name-resource-type-representatio" class="section-name selfRef">Resource Type Representation</a>
-        </h3>
-<div id="basescimv2resourcetypes">
-<section id="section-3.4.1">
-          <h4 id="name-base-scim-v2-resourcetypes">
-<a href="#section-3.4.1" class="section-number selfRef">3.4.1. </a><a href="#name-base-scim-v2-resourcetypes" class="section-name selfRef"><code>&lt;base&gt;/scim/v2/ResourceTypes</code></a>
-          </h4>
-<p id="section-3.4.1-1">Sample Role and entitlement resourceTypes with permission and license as custom schema extensions<a href="#section-3.4.1-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.4.1-2">
-<pre>
-[{
-    "schemas":["urn:ietf:params:scim:schemas:core:2.0:ResourceType"],
-    "id": "Role",
-    "name": "Role",
-    "endpoint": "/Roles",
-    "description": "Role",
-    "schema": "urn:ietf:params:scim:schemas:core:1.0:Role",
-    "schemaExtensions": [
-       {
-         "schema":
-           "urn:&lt;isvname&gt;:scim:schemas:extension:appname:1.0:RoleExample",
-         "required": true
-       }
-     ],
-     "meta": {
-       "location": "https://example.com/v2/ResourceTypes/Role",
-       "resourceType": "ResourceType"
-     }
-    },
-    {
-        "schemas":["urn:ietf:params:scim:schemas:core:2.0:ResourceType"],
-        "id": "License",
-        "name": "License",
-        "endpoint": "/Licenses",
-        "description": "License",
-        "schema": "urn:ietf:params:scim:schemas:core:1.0:Entitlement",
-        "schemaExtensions": [
-           {
-             "schema":
-               "urn:&lt;isvname&gt;:scim:schemas:extension:appname:1.0:License",
-             "required": true
-           }
-         ],
-         "meta": {
-           "location": "https://example.com/v2/ResourceTypes/Entitlement",
-           "resourceType": "ResourceType"
-         }
-}]
-</pre><a href="#section-3.4.1-2" class="pilcrow">¶</a>
-</div>
-<p id="section-3.4.1-3">Important:<a href="#section-3.4.1-3" class="pilcrow">¶</a></p>
-<p id="section-3.4.1-4">The root schema are <code>urn:ietf:params:scim:schemas:core:1.0:Role</code> and <code>urn:ietf:params:scim:schemas:core:1.0:Entitlement</code>.<a href="#section-3.4.1-4" class="pilcrow">¶</a></p>
-<p id="section-3.4.1-5"><code>schemaExtensions</code> denote the specific schema extensions for service provider with urns:<a href="#section-3.4.1-5" class="pilcrow">¶</a></p>
-<p id="section-3.4.1-6"><code>urn:&lt;isvname&gt;:scim:schemas:extension:&lt;appname&gt;:1.0:RoleExample</code>, <code>urn:isvname:scim:schemas:extension:appname:1.0:License</code>, etc.<a href="#section-3.4.1-6" class="pilcrow">¶</a></p>
-</section>
-</div>
 <div id="schema-samples">
-<section id="section-3.4.2">
+<section id="section-3.3.1">
           <h4 id="name-schema-samples">
-<a href="#section-3.4.2" class="section-number selfRef">3.4.2. </a><a href="#name-schema-samples" class="section-name selfRef">Schema samples</a>
+<a href="#section-3.3.1" class="section-number selfRef">3.3.1. </a><a href="#name-schema-samples" class="section-name selfRef">Schema samples</a>
           </h4>
 <div id="role">
-<section id="section-3.4.2.1">
+<section id="section-3.3.1.1">
             <h5 id="name-role">
-<a href="#section-3.4.2.1" class="section-number selfRef">3.4.2.1. </a><a href="#name-role" class="section-name selfRef">Role</a>
+<a href="#section-3.3.1.1" class="section-number selfRef">3.3.1.1. </a><a href="#name-role" class="section-name selfRef">Role</a>
             </h5>
-<p id="section-3.4.2.1-1"><code>&lt;base&gt;/scim/v2/Schemas/urn:ietf:params:scim:schemas:core:1.0:Role</code><a href="#section-3.4.2.1-1" class="pilcrow">¶</a></p>
-<p id="section-3.4.2.1-2">Sample schema for a Role property<a href="#section-3.4.2.1-2" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.4.2.1-3">
+<p id="section-3.3.1.1-1"><code>&lt;base&gt;/scim/v2/Schemas/urn:ietf:params:scim:schemas:core:2.0:Role</code><a href="#section-3.3.1.1-1" class="pilcrow">¶</a></p>
+<p id="section-3.3.1.1-2">Sample schema for a Role property<a href="#section-3.3.1.1-2" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-3.3.1.1-3">
 <pre>
 {
-    "id":"urn:ietf:schemas:core:1.0:Role",
+    "id":"urn:ietf:params:scim:schemas:core:2.0:Role",
     "name":"Role",
     "description":"Role schema",
     "attributes":[
@@ -1511,7 +1477,7 @@ contains
             "name" : "id",
             "type" : "string",
             "multiValued" : false,
-            "description" : "The unique id for role.",
+            "description" : "The unique identifier for the role.",
             "required" : false,
             "caseExact" : false,
             "mutability" : "readOnly",
@@ -1522,7 +1488,7 @@ contains
             "name" : "value",
             "type" : "string",
             "multiValued" : false,
-            "description" : "Role value.",
+            "description" : "The value of a role.",
             "required" : true,
             "caseExact" : false,
             "mutability" : "readOnly",
@@ -1530,10 +1496,10 @@ contains
             "uniqueness" : "none"
         },
         {
-            "name" : "displaye",
+            "name" : "display",
             "type" : "string",
             "multiValued" : false,
-            "description" : "display name for role.",
+            "description" : "A human-readable name, primarily used for display purposes.  READ-ONLY.",
             "required" : false,
             "caseExact" : false,
             "mutability" : "readOnly",
@@ -1544,7 +1510,18 @@ contains
             "name" : "type",
             "type" : "string",
             "multiValued" : false,
-            "description" : "Role type.",
+            "description" : "A label indicating the attribute's function.",
+            "required" : false,
+            "caseExact" : false,
+            "mutability" : "readOnly",
+            "returned" : "default",
+            "uniqueness" : "none"
+        },
+        {
+            "name" : "primary",
+            "type" : "boolean",
+            "multiValued" : false,
+            "description" : "A Boolean value indicating the 'primary' or preferred attribute value for this attribute.  The primary attribute value 'true' MUST appear no more than once.",
             "required" : false,
             "caseExact" : false,
             "mutability" : "readOnly",
@@ -1556,17 +1533,61 @@ contains
             "type" : "boolean",
             "multiValued" : false,
             "description" : "supported value for role",
-            "required" : true,
+            "required" : false,
             "caseExact" : false,
             "mutability" : "readOnly",
             "returned" : "default",
             "uniqueness" : "none"
         },
         {
-            "name" : "type",
-            "type" : "string",
+            "name" : "limitedAssignmentsPermitted",
+            "type" : "boolean",
             "multiValued" : false,
-            "description" : "The unique id for role.",
+            "description" : "if a limited number of users may be assigned this role.",
+            "required" : false,
+            "caseExact" : false,
+            "mutability" : "readOnly",
+            "returned" : "default",
+            "uniqueness" : "none"
+        },
+        {
+            "name" : "totalAssignmentsPermitted",
+            "type" : "integer",
+            "multiValued" : false,
+            "description" : "number of users may be assigned this role, either directly or inherited.",
+            "required" : false,
+            "caseExact" : false,
+            "mutability" : "readOnly",
+            "returned" : "default",
+            "uniqueness" : "none"
+        },
+        {
+            "name" : "totalAssignmentsUsed",
+            "type" : "integer",
+            "multiValued" : false,
+            "description" : "how many users are currently assigned this role, either directly or inherited.",
+            "required" : false,
+            "caseExact" : false,
+            "mutability" : "readOnly",
+            "returned" : "default",
+            "uniqueness" : "none"
+        },
+        {
+            "name" : "containedBy",
+            "type" : "string",
+            "multiValued" : true,
+            "description" : "A list of "parent" roles that contain a superset of permissions including those granted by this role.",
+            "required" : false,
+            "caseExact" : false,
+            "mutability" : "readOnly",
+            "returned" : "default",
+            "uniqueness" : "none"
+        },
+        {
+            "name" : "contains",
+            "type" : "string",
+            "multiValued" : true,
+            "description" : "A list of "child" roles that this role grants the rights of.",
             "required" : false,
             "caseExact" : false,
             "mutability" : "readOnly",
@@ -1575,57 +1596,21 @@ contains
         }
     ]
 }
-</pre><a href="#section-3.4.2.1-3" class="pilcrow">¶</a>
-</div>
-</section>
-</div>
-<div id="example-role">
-<section id="section-3.4.2.2">
-            <h5 id="name-example-role">
-<a href="#section-3.4.2.2" class="section-number selfRef">3.4.2.2. </a><a href="#name-example-role" class="section-name selfRef">Example Role</a>
-            </h5>
-<p id="section-3.4.2.2-1"><code>&lt;base&gt;/scim/v2/Schemas/urn:isvname:scim:schemas:extension:appname:1.0:RoleExample</code><a href="#section-3.4.2.2-1" class="pilcrow">¶</a></p>
-<p id="section-3.4.2.2-2">Sample schema extension for a Role property<a href="#section-3.4.2.2-2" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.4.2.2-3">
-<pre>
-{
-    "id":"urn:isvname:scim:schemas:extension:appname:1.0:RoleExample",
-    "name":"P",
-    "description":"RoleExample schema extension",
-    "attributes":[
-        {
-            "name" : "permission",
-            "type" : "string",
-            "multiValued" : false,
-            "description" : "custom property in role",
-            "required" : false,
-            "caseExact" : false,
-            "mutability" : "readwrite",
-            "returned" : "default",
-            "uniqueness" : "none"
-        }
-        ]
-    },
-    "meta": {
-        "resourceType": "schema",
-        "location":"/v2/Schemas/urn:isvname:scim:schemas:extension:appname:1.0:RoleExample"
-    }
-}
-</pre><a href="#section-3.4.2.2-3" class="pilcrow">¶</a>
+</pre><a href="#section-3.3.1.1-3" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
 <div id="entitlement">
-<section id="section-3.4.2.3">
+<section id="section-3.3.1.2">
             <h5 id="name-entitlement">
-<a href="#section-3.4.2.3" class="section-number selfRef">3.4.2.3. </a><a href="#name-entitlement" class="section-name selfRef">Entitlement</a>
+<a href="#section-3.3.1.2" class="section-number selfRef">3.3.1.2. </a><a href="#name-entitlement" class="section-name selfRef">Entitlement</a>
             </h5>
-<p id="section-3.4.2.3-1"><code>&lt;base&gt;/scim/v2/Schemas/urn:ietf:scim:schemas:core:1.0:Entitlement</code><a href="#section-3.4.2.3-1" class="pilcrow">¶</a></p>
-<p id="section-3.4.2.3-2">Sample schema for entitlement property<a href="#section-3.4.2.3-2" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.4.2.3-3">
+<p id="section-3.3.1.2-1"><code>&lt;base&gt;/scim/v2/Schemas/urn:ietf:params:scim:schemas:core:2.0:Entitlement</code><a href="#section-3.3.1.2-1" class="pilcrow">¶</a></p>
+<p id="section-3.3.1.2-2">Sample schema for entitlement property<a href="#section-3.3.1.2-2" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-3.3.1.2-3">
 <pre>
 {
-    "id":"urn:ietf:schemas:core:1.0:Entitlement",
+    "id":"urn:ietf:params:scim:schemas:core:2.0:Entitlement",
     "name":"Entitlement",
     "description":"Entitlement schema",
     "attributes":[
@@ -1633,8 +1618,8 @@ contains
             "name" : "id",
             "type" : "string",
             "multiValued" : false,
-            "description" : "The unique id for Entitlement.",
-            "required" : false,
+            "description" : "The unique identifier for the Entitlement.",
+            "required" : true,
             "caseExact" : false,
             "mutability" : "readOnly",
             "returned" : "default",
@@ -1644,18 +1629,18 @@ contains
             "name" : "value",
             "type" : "string",
             "multiValued" : false,
-            "description" : "Role value.",
-            "required" : true,
+            "description" : "The value of an entitlement.",
+            "required" : false,
             "caseExact" : false,
             "mutability" : "readOnly",
             "returned" : "default",
             "uniqueness" : "none"
         },
         {
-            "name" : "displaye",
+            "name" : "display",
             "type" : "string",
             "multiValued" : false,
-            "description" : "display name for role.",
+            "description" : "A human-readable name, primarily used for display purposes.  READ-ONLY.",
             "required" : false,
             "caseExact" : false,
             "mutability" : "readOnly",
@@ -1666,7 +1651,18 @@ contains
             "name" : "type",
             "type" : "string",
             "multiValued" : false,
-            "description" : "Role type.",
+            "description" : "A label indicating the attribute's function.",
+            "required" : false,
+            "caseExact" : false,
+            "mutability" : "readOnly",
+            "returned" : "default",
+            "uniqueness" : "none"
+        },
+        {
+            "name" : "primary",
+            "type" : "boolean",
+            "multiValued" : false,
+            "description" : "A Boolean value indicating the 'primary' or preferred attribute value for this attribute.  The primary attribute value 'true' MUST appear no more than once.",
             "required" : false,
             "caseExact" : false,
             "mutability" : "readOnly",
@@ -1677,18 +1673,62 @@ contains
             "name" : "supported",
             "type" : "boolean",
             "multiValued" : false,
-            "description" : "supported value for role",
-            "required" : true,
+            "description" : "supported value for entitlement",
+            "required" : false,
             "caseExact" : false,
             "mutability" : "readOnly",
             "returned" : "default",
             "uniqueness" : "none"
         },
         {
-            "name" : "type",
-            "type" : "string",
+            "name" : "limitedAssignmentsPermitted",
+            "type" : "boolean",
             "multiValued" : false,
-            "description" : "The unique id for role.",
+            "description" : "if a limited number of users may be assigned this entitlement.",
+            "required" : false,
+            "caseExact" : false,
+            "mutability" : "readOnly",
+            "returned" : "default",
+            "uniqueness" : "none"
+        },
+        {
+            "name" : "totalAssignmentsPermitted",
+            "type" : "integer",
+            "multiValued" : false,
+            "description" : "number of users may be assigned this entitlement, either directly or inherited.",
+            "required" : false,
+            "caseExact" : false,
+            "mutability" : "readOnly",
+            "returned" : "default",
+            "uniqueness" : "none"
+        },
+        {
+            "name" : "totalAssignmentsUsed",
+            "type" : "integer",
+            "multiValued" : false,
+            "description" : "how many users are currently assigned this entitlement, either directly or inherited.",
+            "required" : false,
+            "caseExact" : false,
+            "mutability" : "readOnly",
+            "returned" : "default",
+            "uniqueness" : "none"
+        },
+        {
+            "name" : "containedBy",
+            "type" : "string",
+            "multiValued" : true,
+            "description" : "A list of "parent" entitlement that contain a superset of permissions including those granted by this entitlement.",
+            "required" : false,
+            "caseExact" : false,
+            "mutability" : "readOnly",
+            "returned" : "default",
+            "uniqueness" : "none"
+        },
+        {
+            "name" : "contains",
+            "type" : "string",
+            "multiValued" : true,
+            "description" : "A list of "child" roles that this entitlement grants the rights of.",
             "required" : false,
             "caseExact" : false,
             "mutability" : "readOnly",
@@ -1697,60 +1737,24 @@ contains
         }
     ]
 }
-</pre><a href="#section-3.4.2.3-3" class="pilcrow">¶</a>
-</div>
-</section>
-</div>
-<div id="license">
-<section id="section-3.4.2.4">
-            <h5 id="name-license">
-<a href="#section-3.4.2.4" class="section-number selfRef">3.4.2.4. </a><a href="#name-license" class="section-name selfRef">License</a>
-            </h5>
-<p id="section-3.4.2.4-1"><code>&lt;base&gt;/scim/v2/Schemas/urn:isvname:scim:schemas:extension:appname:1.0:License</code><a href="#section-3.4.2.4-1" class="pilcrow">¶</a></p>
-<p id="section-3.4.2.4-2">Sample schema extension for an Entitlement property<a href="#section-3.4.2.4-2" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.4.2.4-3">
-<pre>
-{
-    "id":"urn:isvname:scim:schemas:extension:appname:1.0:License",
-    "name":"License",
-    "description":"License entitlement schema extension",
-    "attributes":[
-        {
-            "name" : "licensecount",
-            "type" : "string",
-            "multiValued" : false,
-            "description" : "custom property in license entitlement",
-            "required" : false,
-            "caseExact" : false,
-            "mutability" : "readwrite",
-            "returned" : "default",
-            "uniqueness" : "none"
-        }
-        ]
-    },
-    "meta": {
-        "resourceType": "schema",
-        "location":"/v2/Schemas/urn:isvname:scim:schemas:extension:appname:1.0:License"
-    }
-}
-</pre><a href="#section-3.4.2.4-3" class="pilcrow">¶</a>
+</pre><a href="#section-3.3.1.2-3" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
 </section>
 </div>
-<div id="sample-schema-response">
-<section id="section-3.4.3">
-          <h4 id="name-sample-schema-response">
-<a href="#section-3.4.3" class="section-number selfRef">3.4.3. </a><a href="#name-sample-schema-response" class="section-name selfRef">Sample schema response</a>
+<div id="sample-roles-and-entitlements-resource-endpoints">
+<section id="section-3.3.2">
+          <h4 id="name-sample-roles-and-entitlemen">
+<a href="#section-3.3.2" class="section-number selfRef">3.3.2. </a><a href="#name-sample-roles-and-entitlemen" class="section-name selfRef">Sample Roles and Entitlements resource endpoints</a>
           </h4>
 <div id="retrieving-all-roles">
-<section id="section-3.4.3.1">
+<section id="section-3.3.2.1">
             <h5 id="name-retrieving-all-roles">
-<a href="#section-3.4.3.1" class="section-number selfRef">3.4.3.1. </a><a href="#name-retrieving-all-roles" class="section-name selfRef">Retrieving all roles</a>
+<a href="#section-3.3.2.1" class="section-number selfRef">3.3.2.1. </a><a href="#name-retrieving-all-roles" class="section-name selfRef">Retrieving all Roles</a>
             </h5>
-<p id="section-3.4.3.1-1"><code>GET /Roles</code><a href="#section-3.4.3.1-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.4.3.1-2">
+<p id="section-3.3.2.1-1"><code>GET /Roles</code><a href="#section-3.3.2.1-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-3.3.2.1-2">
 <pre>
 {
     "schemas":["urn:ietf:params:scim:api:messages:2.0:ListResponse"],
@@ -1759,60 +1763,39 @@ contains
     "startIndex":1,
     "Resources":[
         {
-            "schemas": [
-                "urn:ietf:params:scim:schemas:core:1.0:Role",
-                "urn:&lt;isvname&gt;:scim:schemas:extension:&lt;appname&gt;:1.0:RoleExample"
-            ],
             "id":"rl3456",
             "value":"global_lead",
             "display":"Global Team Lead",
-            "urn:&lt;isvname&gt;:scim:schemas:extension:&lt;appname&gt;:1.0:RoleExample":{
-                "permission":"1"
-            },
-            "contains":["teamlead"],
+            "contains":["us_team_lead"],
             "containedBy":[]
         },
         {
-            "schemas": [
-                "urn:ietf:params:scim:schemas:core:1.0:Role",
-                "urn:&lt;isvname&gt;:scim:schemas:extension:&lt;appname&gt;:1.0:RoleExample"
-            ],
             "id":"rl5873",
             "value":"us_team_lead",
             "display":"U.S. Team Lead",
-            "urn:&lt;isvname&gt;:scim:schemas:extension:&lt;appname&gt;:1.0:RoleExample":{
-                "permission":"2"
-            },
             "contains":["regional_lead"],
             "containedBy":["global_lead"]
         },
         {
-            "schemas": [
-                "urn:ietf:params:scim:schemas:core:1.0:Role",
-                "urn:&lt;isvname&gt;:scim:schemas:extension:&lt;appname&gt;:1.0:RoleExample"
-            ],
             "id":"rl9057",
             "value":"nw_regional_lead",
             "display":"Northwest Regional Lead",
-            "urn:&lt;isvname&gt;:scim:schemas:extension:&lt;appname&gt;:1.0:RoleExample":{
-                "permission":"1"
-            },
             "contains":[],
             "containedBy":["us_team_lead"]
         }
     ]
 }
-</pre><a href="#section-3.4.3.1-2" class="pilcrow">¶</a>
+</pre><a href="#section-3.3.2.1-2" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
 <div id="retrieving-all-entitlements">
-<section id="section-3.4.3.2">
+<section id="section-3.3.2.2">
             <h5 id="name-retrieving-all-entitlements">
-<a href="#section-3.4.3.2" class="section-number selfRef">3.4.3.2. </a><a href="#name-retrieving-all-entitlements" class="section-name selfRef">Retrieving all entitlements</a>
+<a href="#section-3.3.2.2" class="section-number selfRef">3.3.2.2. </a><a href="#name-retrieving-all-entitlements" class="section-name selfRef">Retrieving all entitlements</a>
             </h5>
-<p id="section-3.4.3.2-1"><code>GET /Entitlements</code><a href="#section-3.4.3.2-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.4.3.2-2">
+<p id="section-3.3.2.2-1"><code>GET /Entitlements</code><a href="#section-3.3.2.2-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-3.3.2.2-2">
 <pre>
 {
     "schemas":["urn:ietf:params:scim:api:messages:2.0:ListResponse"],
@@ -1821,93 +1804,48 @@ contains
     "startIndex":1,
     "Resources":[
         {
-            "schemas": [
-                "urn:ietf:params:scim:schemas:core:1.0:Entitlement",
-                "urn:&lt;isvname&gt;:scim:schemas:extension:&lt;appname&gt;:1.0:License"
-            ],
-            "id":"en9057",
-            "value":"1",
-            "display":"Printing",
-            "urn:&lt;isvname&gt;:scim:schemas:extension:&lt;appname&gt;:1.0:License":{
-                "licensecount":"10"
-            },
-            "enabled":true,
+            "id": "e-10045",  // Internal ID for the Full Access License object
+            "value": "license.full_access_seat",
+            "type": "License",
+            "display": "DevTrack Full Feature License"
             "contains":[],
-            "containedBy":["5"]
-        },
-        {
-            "schemas": [
-                "urn:ietf:params:scim:schemas:core:1.0:Entitlement",
-                "urn:&lt;isvname&gt;:scim:schemas:extension:&lt;appname&gt;:1.0:License"
-            ],
-            "id":"en9907",
-            "value":"2",
-            "display":"Scanning",
-            "urn:&lt;isvname&gt;:scim:schemas:extension:&lt;appname&gt;:1.0:License":{
-                "licensecount":"100"
-            },
-            "contains":[],
-            "containedBy":["5"]
-        },
-        {
-            "schemas": [
-                "urn:ietf:params:scim:schemas:core:1.0:Entitlement",
-                "urn:&lt;isvname&gt;:scim:schemas:extension:&lt;appname&gt;:1.0:License"
-            ],
-            "id":"en38476",
-            "value":"3",
-            "display":"Copying",
-            "urn:&lt;isvname&gt;:scim:schemas:extension:&lt;appname&gt;:1.0:License":{
-                "licensecount":"1000"
-            },
-            "contains":[],
-            "containedBy":["5"]
-        },
-        {
-            "schemas": [
-                "urn:ietf:params:scim:schemas:core:1.0:Entitlement",
-                "urn:&lt;isvname&gt;:scim:schemas:extension:&lt;appname&gt;:1.0:License"
-            ],
-            "id":"en2257",
-            "value":"4",
-            "display":"Collating",
-            "urn:&lt;isvname&gt;:scim:schemas:extension:&lt;appname&gt;:1.0:License":{
-                "licensecount":"10"
-            },
-            "contains":[],
-            "containedBy":["5"]
-        },
-        {
-            "schemas": [
-                "urn:ietf:params:scim:schemas:core:1.0:Entitlement",
-                "urn:&lt;isvname&gt;:scim:schemas:extension:&lt;appname&gt;:1.0:License"
-            ],
-            "id":"en33097",
-            "value":"5",
-            "display":"All Printer Permissions",
-            "urn:&lt;isvname&gt;:scim:schemas:extension:&lt;appname&gt;:1.0:License":{
-                "licensecount":"10"
-            },
-            "contains":["1","2","3","4"],
             "containedBy":[]
+        },
+        {
+            "id": "e-20993",  // Internal ID for the Code Review Bypass permission object
+            "value": "feature.code_review_bypass",
+            "type": "Permission",
+            "display": "Bypass Mandatory Code Review (Elevated Privilege)"
+            "contains":[],
+            "containedBy":[]
+        },
+        {
+            "id": "e-31578",  // Internal ID for the Storage Limit object
+            "value": "storage.limit_100gb",
+            "type": "ResourceLimit",
+            "display": "100 GB Repository Storage Limit"
+            "contains":[],
+            "containedBy":["e-10045"]
         }
     ]
 }
-</pre><a href="#section-3.4.3.2-2" class="pilcrow">¶</a>
+</pre><a href="#section-3.3.2.2-2" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
 <div id="sample-user-representation-with-role-and-entitlement">
-<section id="section-3.4.3.3">
+<section id="section-3.3.2.3">
             <h5 id="name-sample-user-representation-">
-<a href="#section-3.4.3.3" class="section-number selfRef">3.4.3.3. </a><a href="#name-sample-user-representation-" class="section-name selfRef">Sample user representation with role and entitlement</a>
+<a href="#section-3.3.2.3" class="section-number selfRef">3.3.2.3. </a><a href="#name-sample-user-representation-" class="section-name selfRef">Sample user representation with role and entitlement</a>
             </h5>
-<div class="alignLeft art-text artwork" id="section-3.4.3.3-1">
+<div class="alignLeft art-text artwork" id="section-3.3.2.3-1">
 <pre>
 {
     "schemas":
       ["urn:ietf:params:scim:schemas:core:2.0:User",
-        "urn:ietf:params:scim:schemas:extension:enterprise:2.0:User"],
+        "urn:ietf:params:scim:schemas:extension:enterprise:2.0:User",
+        "urn:ietf:params:scim:schemas:core:2.0:Role",
+        "urn:ietf:params:scim:schemas:core:2.0:Entitlement"],
     "id": "2819c223-7f76-453a-919d-413861904646",
     "externalId": "701984",
     "userName": "bjensen@example.com",
@@ -2030,14 +1968,20 @@ contains
           +GFiBZ+GNF/cAYKcMtGcrs2i97ZkJMo="
       }
     ],
-    "entitlements":{
-        "value":"ent1234",
-        "display":"entitlement 1"
-    },
-    "roles":{
-        "value":"rl4567",
-        "display":"role 1"
-    },
+    "entitlements":[
+        {
+            "id": "e-31578",
+            "value": "storage.limit_100gb",
+            "type": "ResourceLimit",
+            "display": "100 GB Repository Storage Limit",
+      }
+    ],
+    "roles":[
+      {
+        "value":"global_lead",
+        "display":"global lead"
+      }
+    ],
 
     "urn:ietf:params:scim:schemas:extension:enterprise:2.0:User": {
       "employeeNumber": "701984",
@@ -2058,11 +2002,10 @@ contains
       "version": "W\/\"3694e05e9dff591\"",
       "location": "https://example.com/v2/Users/2819c223-7f76-453a-919d-413861904646"
     }
-  }
 }
-</pre><a href="#section-3.4.3.3-1" class="pilcrow">¶</a>
+</pre><a href="#section-3.3.2.3-1" class="pilcrow">¶</a>
 </div>
-<p id="section-3.4.3.3-2">~~~<a href="#section-3.4.3.3-2" class="pilcrow">¶</a></p>
+<p id="section-3.3.2.3-2">~~~<a href="#section-3.3.2.3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -2146,6 +2089,9 @@ contains
         <li class="normal" id="appendix-B-2.5">
           <p id="appendix-B-2.5.1">Added Unmesh Vartak as co-author<a href="#appendix-B-2.5.1" class="pilcrow">¶</a></p>
 </li>
+        <li class="normal" id="appendix-B-2.6">
+          <p id="appendix-B-2.6.1">Using schema version 2.0 for roles and entitlements schemas: urn:ietf:params:scim:schemas:core:2.0:Role and urn:ietf:params:scim:schemas:core:2.0:Entitlement<a href="#appendix-B-2.6.1" class="pilcrow">¶</a></p>
+</li>
       </ul>
 <p id="appendix-B-3">-00<a href="#appendix-B-3" class="pilcrow">¶</a></p>
 <ul class="normal">
@@ -2173,7 +2119,7 @@ contains
 <div dir="auto" class="left"><span class="org">Microsoft</span></div>
 <div class="email">
 <span>Email:</span>
-<a href="mailto:zollnerd@microsoft.com" class="email">zollnerd@microsoft.com</a>
+<a href="mailto:danny@zollnerd.com" class="email">danny@zollnerd.com</a>
 </div>
 </address>
 <address class="vcard">
@@ -2181,7 +2127,7 @@ contains
 <div dir="auto" class="left"><span class="org">Okta</span></div>
 <div class="email">
 <span>Email:</span>
-<a href="mailto:unmesh.vartak@okta.com" class="email">unmesh.vartak@okta.com</a>
+<a href="mailto:uvartak@okta.com" class="email">uvartak@okta.com</a>
 </div>
 </address>
 </section>
